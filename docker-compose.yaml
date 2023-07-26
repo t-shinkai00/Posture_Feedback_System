@@ -16,7 +16,7 @@ services:
       dockerfile: docker/node/Dockerfile
     volumes:
       - ./frontend:/src # ローカルをコンテナ内にマウント
-    command: sh -c "cd react-project && yarn start" # コンテナを立ち上げた時に自動的にbuild
+    command: sh -c "cd frontend && yarn start" # コンテナを立ち上げた時に自動的にbuild
     ports:
       - 3000:3000
 
