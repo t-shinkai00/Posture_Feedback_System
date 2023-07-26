@@ -1,14 +1,14 @@
 version: "3.0"
 
-services:
-  backend:
-    volumes:
-      - ./backend:/app
-    build:
-      context: .
-      dockerfile: docker/python/Dockerfile
-    ports:
-      - 8080:8080
+# services:
+#   backend:
+#     volumes:
+#       - ./backend:/app
+#     build:
+#       context: .
+#       dockerfile: docker/python/Dockerfile
+#     ports:
+#       - 8080:8080
 
   frontend:
     build:
