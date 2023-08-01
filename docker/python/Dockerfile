@@ -1,33 +1,15 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y \
-    python3.11 \
-    python3-pip \
-    curl \
-    gnupg \
-    wget \
-    openjdk-11-jdk \
-    git
-
-# Bazelのインストールに必要なパッケージをインストール
-RUN apt-get install -y pkg-config zip g++ zlib1g-dev unzip
-
-# Install bazel
-ARG BAZEL_VERSION=6.1.1
-RUN mkdir /bazel && \
-    wget --no-check-certificate -O /bazel/installer.sh "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/b\
-azel-${BAZEL_VERSION}-installer-linux-x86_64.sh" && \
-    wget --no-check-certificate -O  /bazel/LICENSE.txt "https://raw.githubusercontent.com/bazelbuild/bazel/master/LICENSE" && \
-    chmod +x /bazel/installer.sh && \
-    /bazel/installer.sh  && \
-    rm -f /bazel/installer.sh
+RUN apt update && \
+    apt install -y python3-dev protobuf-compiler python3-pip git make libssl-dev curl unzip
+RUN pip3 install pip setuptools --upgrade
 
 # Setup Mediapipe
-RUN apt-get install -y protobuf-compiler
-RUN git clone --depth 1 https://github.com/google/mediapipe.git
-WORKDIR /mediapipe
-# RUN bazel build --experimental_allow_proto3_optional //mediapipe/...
-RUN python setup.py install
+RUN git clone --depth 1 https://github.com/PINTO0309/mediapipe-bin.git
+WORKDIR /mediapipe-bin
+RUN chmod +x ./v0.8.4/download.sh && ./v0.8.4/download.sh
+RUN unzip v0.8.4.zip
+RUN pip3 install *.whl
 
 WORKDIR /app
 COPY ./docker/python/requirements.txt .

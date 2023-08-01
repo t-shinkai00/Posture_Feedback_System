@@ -1,20 +1,14 @@
 version: "3.0"
 
 services:
-  # backend:
-  #   volumes:
-  #     - ./backend:/app
-  #   build:
-  #     context: .
-  #     dockerfile: docker/python/Dockerfile
-  #   ports:
-  #     - 8080:8080
-
-  # mediapipe:
-  #   build:
-  #     context: ./mediapipe
-  #   ports:
-  #     - "8000:8000"
+  backend:
+    volumes:
+      - ./backend:/app
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    ports:
+      - 8080:8080
 
   frontend:
     build:
